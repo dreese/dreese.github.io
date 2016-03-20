@@ -1,0 +1,108 @@
+<html>
+<head>
+<title>NSIS Ant Task</title>
+<meta name="description" content="Ant task to compile NSIS scripts." />
+<meta name="author" content="Daniel Reese" />
+</head>
+<body>
+
+<h1>NSIS Ant Task</h1>
+
+<h2>Description</h2>
+
+<p>Ant task for compiling <a href="http://nsis.sourceforge.net/">NSIS</a> scripts on Windows, Linux and Mac systems. Help automate the build process of projects that use the NSIS installer.</p>
+
+<p>To use it, put the NSIS Ant jarfile in an accessible location and add the following to your Ant script: </p>
+
+<pre><code>&lt;taskdef name="nsis" classname="net.sf.nsisant.Task"&gt;
+    &lt;classpath location="nsisant-{version}.jar"&gt;
+&lt;/taskdef&gt;
+</code></pre>
+
+<p>For more information, please view the <a href="http://danielreese.com/nsis-ant/api/">API</a>, visit the <a href="http://github.com/dreese/nsis-ant">project homepage</a> or read the <a href="http://nsis.sourceforge.net/Docs/Chapter3.html">MakeNSIS documentation</a>.</p>
+
+<h2>Download</h2>
+
+<p>Download <a href="http://github.com/downloads/dreese/nsis-ant/nsisant-1.3.jar">NSIS Ant 1.3</a> or the <a href="http://github.com/downloads/dreese/nsis-ant/nsisant-1.3.zip">source and Javadoc</a>.</p>
+
+<h2>NSIS Element Parameters</h2>
+
+<ul>
+<li>script (required) &mdash; Path of the NSIS script to compile.</li>
+<li>verbosity &mdash; How much logging is written to standard output. Default is 0.
+<ol start="0">
+    <li>no output</li>
+    <li>errors only</li>
+    <li>errors and warnings</li>
+    <li>errors, warnings and info</li>
+    <li>all output</li>
+</ol></li>
+<li>out &mdash; File to which to log the output. Default is standard out.</li>
+<li>pause &mdash; Whether to pause after execution of the script. Default is no.</li>
+<li>noconfig &mdash; Whether to disable inclusion of nsisconf.nsh. Default is no.</li>
+<li>nocd &mdash; Whether to disable changing to the directory containing the script. Default is no.</li>
+<li>prefix &mdash; The prefix to use for the command-line options to <code>makensis</code>. Default is to use '/' on Windows and '-' otherwise.</li>
+<li>path &mdash; The directory containing the <code>makensis</code> executable. Default is to search the <code>PATH</code>.</li>
+</ul>
+
+<h2>Nested Elements and Parameters</h2>
+
+<p><strong>define</strong></p>
+
+<p>Defines a symbol for the script. Equivalent to the /D (-D on non-Windows platforms) command line parameter of <code>makensis</code>. Multiple instances of this element are permitted. It supports the following parameters: </p>
+
+<ul>
+<li>name (required) &mdash; The name of the symbol to define.</li>
+<li>value (required) &mdash; The value of the symbol.</li>
+</ul>
+
+<p><strong>scriptcmd</strong></p>
+
+<p>Executes an NSIS command in the script. Equivalent to the /X (-X on non-Windows platforms) command line parameter of <code>makensis</code>. Multiple instances of this element are allowed and are executed in the order specified. It supports the following parameters: </p>
+
+<ul>
+<li>cmd (required)  &mdash; The NSIS command to execute in the script.</li>
+</ul>
+
+<h2>Examples</h2>
+
+<p>Compile a script using all of the default values.</p>
+
+<pre><code>&lt;nsis script="myproject.nsi"/&gt;
+</code></pre>
+
+<p>Compile a script with verbose output, logging to a file, and the inclusion of <code>nsisconf.nsh</code> disabled. The VERSION symbol is set to the value "2.1" and the "AutoCloseWindow true" command is executed at the beginning of the script. </p>
+
+<pre><code>&lt;nsis script="myproject.nsi" verbosity="4" out="build.log" noconfig="yes"&gt;
+    &lt;define name="VERSION" value="2.1"/&gt;
+    &lt;scriptcmd cmd="AutoCloseWindow true"/&gt;
+&lt;/nsis&amp;&gt;
+</code></pre>
+
+<hr />
+
+<p>Copyright &copy; 2004 Wayne Grant. Relicensed with permission. <br />
+Copyright &copy; 2005-2010 <a href="http://www.danandcheryl.com/">Daniel Reese</a></p>
+
+<pre><code>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+</code></pre>
+
+</body>
+</html>
+
